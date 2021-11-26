@@ -1,6 +1,6 @@
 using System; 
 
-namespace POOActeur
+namespace TourZorkpremierePartie
 {
     class Acteur
     {
@@ -15,7 +15,7 @@ namespace POOActeur
                 public double Dommage{get; set;}
                 public double TauxCritique{get; set;}     
 
-                public Acteur( string nom, string description, double maxHp, double Hp, double maxArmure, double armure, double regenArmure, double agilite, double dommage, double tauxCritique)
+                public Acteur(string nom, string description, double maxHp, double Hp, double maxArmure, double armure, double regenArmure, double agilite, double dommage, double tauxCritique)
                 {
                     this.Nom = nom; 
                     this.Description = description; 
@@ -26,7 +26,7 @@ namespace POOActeur
                     this.RegenArmure = regenArmure;
                     this.Agilite = agilite;
                     this.Dommage = dommage; 
-                    this.TauxCritique = tauxCritique; 
+                    this.TauxCritique = Agilite/2; 
                 }
 
                 
@@ -34,8 +34,8 @@ namespace POOActeur
              public void Attaquer(Acteur autreActeur)
              {
                  Random aleatoire = new Random();
-                 int touche = aleatoire.Next(1, 101);  
-                 int DommageQuiFontMal = this.Dommage; 
+                 double touche = aleatoire.Next(1, 101);  
+                 double DommageQuiFontMal = this.Dommage; 
 
                  if(touche >= this.TauxCritique)
                  {
@@ -57,8 +57,14 @@ namespace POOActeur
              }
 
              public void Defendre(double Dommage)
-             {
-                
+             {  
+                 this.Armure -=this.Dommage;
+
+                if(this.Armure <=0){
+                 this.Armure=0; 
+                 this.Hp-=this.Dommage;
+             }
+             this.Armure +=this.RegenArmure; 
              }
 
              public bool  estVivant()
@@ -68,7 +74,9 @@ namespace POOActeur
 
              public void AfficherEtat()
              {
-                 Console.WriteLine($"{this.Hp}{this.Armure}"); 
+                 System.Console.WriteLine($"{this.Hp}{this.Armure}"); 
+                 System.Console.ReadLine(); 
+
              }
 
              
