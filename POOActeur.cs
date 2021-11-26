@@ -28,46 +28,47 @@ namespace POOActeur
                     this.Dommage = dommage; 
                     this.TauxCritique = tauxCritique; 
                 }
+
+                
                 
              public void Attaquer(Acteur autreActeur)
              {
-                 Random aleatoire = new Random(1-100); 
-                 if(aleatoire<=100)
+                 Random aleatoire = new Random();
+                 int touche = aleatoire.Next(1, 101);  
+                 int DommageQuiFontMal = this.Dommage; 
+
+                 if(touche >= this.TauxCritique)
                  {
                     Dommage*=Dommage/1.5; 
+                    autreActeur.Defendre(DommageQuiFontMal); 
+                    Console.WriteLine($"{this.Nom} A fait un coup qui fait mal ! {autreActeur.Nom} A eu très très bobo car il a reçus {DommageQuiFontMal} points de dommage !!"); 
+
                  }
-                 if(aleatoire<=Agilite)
+                 else if (touche <=autreActeur.Agilite)
+
                  {
-                     Dommage==0; 
+                     Console.WriteLine($"{autreActeur.Nom} A manqué ton attaque... peut être qu'une prochaine fois il rentrera dedans...");
                  }
                  else
                  {
-                     Dommage==Dommage; 
+                     autreActeur.Defendre(DommageQuiFontMal);
+                     Console.WriteLine($"{autreActeur.Nom} A eu dans sa face {DommageQuiFontMal} points de dommage");
                  }
              }
 
              public void Defendre(double Dommage)
              {
-
+                
              }
 
-             public void estVivant()
-             {
-                 bool vivant= false; 
-                if(Hp>0)
-                {
-                    vivant+=true; 
-                }
-                else
-                {
-                    vivant+=false; 
-                }
-             }
+             public bool  estVivant()
+        {
+            return !(this.Hp <= 0);
+        }
 
              public void AfficherEtat()
              {
-                
-
+                 Console.WriteLine($"{this.Hp}{this.Armure}"); 
              }
 
              
