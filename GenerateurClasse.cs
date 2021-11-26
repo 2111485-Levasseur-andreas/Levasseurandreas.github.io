@@ -32,7 +32,7 @@ namespace TourZorkpremierePartie
 
         public void PoserQuestion()
         {
-
+            //poser questions 1-2-3 et faire voleur++ si réponse concorde avec cette classe etc.  
         }
     }
  }
